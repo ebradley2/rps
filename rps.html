@@ -5,9 +5,42 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RPS</title>
+    <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
 </head>
 <body>
-    Use to console to play Rock Paper Scissors
+    <h1> WELCOME TO ROCK, PAPER, SCISSORS</h1>
+    <h3>First to 5 Wins</h3>
+    <div class="btns">
+        <button id="rock" onclick="userRock()">Rock</button>
+        <button id="paper" onclick="userPaper()">Paper</button>
+        <button id="scissors" onclick="userScissors()">Scissors</button>
+    </div>
+
+    <h3 id="result"></h3>
+
+    <div class="score-container">
+        <div>
+            <div class="scoreTitle">Player Score:</div>
+            <div class="score" id="userScore">0</div>
+        </div>
+        <div>
+            <div class="scoreTitle">Computer Score:</div>
+            <div class="score" id="compScore">0</div>
+        </div>
+    </div>
+    <div class="btns">
+        <div class="reset"><button id="reset" onclick="resetGame()">Play Again</button></div>
+    </div>
+    
+    <script>
+        function initalizeScore() {
+            document.getElementById('userScore').innerHTML = 0;
+            document.getElementById('compScore').innerHTML = 0;
+        }
+
+        initalizeScore();
+    </script>
+
 </body>
 </html>

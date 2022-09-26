@@ -1,74 +1,107 @@
+let userScore = 0;
+let compScore = 0;
+let userSelection;
+
+function userRock() {
+    userSelection = 'rock'
+    console.log(game())
+}
+
+function userPaper() {
+    userSelection = 'paper'
+    console.log(game())
+}
+
+function userScissors() {
+    userSelection = 'scissors'
+    console.log(game())
+}
+
 function getComputerChoice() {
     const rand = Math.floor(Math.random() * 3)
 
     if (rand == 0) return 'rock'
     else if (rand == 1) return 'paper'
     else if (rand == 2) return 'scissors'
-
 }
 
-var userPts = 0
-var compPts = 0
+function playRound(userSelection, computerSelection) {
+    let result;
 
-
-function playRound(playerSelection, computerSelection) {
     // Tie
-    if (playerSelection == computerSelection) console.log("It's a Tie. You both Coose " + computerSelection )
+    if(userSelection == computerSelection)
+        result = 'Draw'
 
-    // Uesr wins
-    if (playerSelection.toLowerCase() == 'rock' && computerSelection == 'scissors') {
-        userPts++;
-        console.log('You Win! Rock beats Scissors');
+    // User wins
+    if(userSelection == 'rock' && computerSelection == 'scissors'){
+        userScore++
+        result = 'You Won! Rock beats Scissors'
     }
-        
-    else if (playerSelection.toLowerCase() == 'paper' && computerSelection == 'rock') {
-        userPts++;
-        console.log('You Win! Paper beats Rock');
+    if(userSelection == 'paper' && computerSelection == 'rock'){
+        userScore++
+        result = 'You Won! Paper beats Rock'
     }
-        
-    else if (playerSelection.toLowerCase() == 'scissors' && computerSelection == 'paper') {
-        userPts++;
-        console.log('You Win! Scissors beats Paper');
+    if(userSelection == 'scissors' && computerSelection == 'paper'){
+        userScore++
+        result = 'You Won! Scissors beats Paper'
+    }
+    
+    // Computer Wins
+    if(computerSelection == 'rock' && userSelection == 'scissors'){
+        compScore++
+        result = 'You Lose, Rock beats Scissors'
+    }
+    if(computerSelection == 'paper' && userSelection == 'rock'){
+        compScore++
+        result = 'You Lose, Paper beats Rock'
+    }
+    if(computerSelection == 'scissors' && userSelection == 'paper'){
+        compScore++
+        result = 'You Lose, Scissors beats Paper'
     }
 
-    // Computer wins
-    if (computerSelection == 'rock' && playerSelection.toLowerCase() == 'scissors') {
-        compPts++;
-        console.log('You Lose! Rock beats Scissors');
-    }
-        
-    else if (computerSelection == 'paper' && playerSelection.toLowerCase() == 'rock') {
-        compPts++;
-        console.log('You Lose! Paper beats Rock');
-    }
-        
-    else if (computerSelection == 'scissors' && playerSelection.toLowerCase() == 'paper') {
-        compPts++;
-       console.log('You Lose! Scissors beats Paper');
-    } 
-        
+    document.getElementById('result').innerHTML = result;
+    document.getElementById('userScore').innerHTML = userScore;
+    document.getElementById('compScore').innerHTML = compScore;
+
+    return ([result, userScore, compScore])
 }
-
-
 
 function game() {
+    result
+    console.log(playRound(userSelection, getComputerChoice()))
 
-    for(let i = 0; i <= 5;i++) {
-        const playerSelection = prompt('Choose Rock, Paper, or Scissors: ')
-        const computerSelection = getComputerChoice()
+    if(userScore == 5 || compScore == 5) {
+        document.getElementById('rock').disabled = true
+        document.getElementById('paper').disabled = true
+        document.getElementById('scissors').disabled = true
+        document.getElementById('reset').style.display = 'block'
 
-        console.log('You chose ' + playerSelection + ' the computer chose ' + computerSelection)
+        if(userScore > compScore) {
+            result = 'You Win'
+            document.getElementById('result').innerHTML = result
+            document.getElementById('result').style.color = 'blue'
+        }
+        else if (compScore > userScore) {
+            result = 'You Lose'
+            document.getElementById('result').innerHTML = result
+            document.getElementById('result').style.color = 'red'
+        }
 
-        console.log(playRound(playerSelection, computerSelection))
-
-        console.log('You have ' + userPts + ' | Computer has ' + compPts)
+        return result
     }
-
-    if (userPts > compPts) console.log('You Win the Game!')
-    if (userPts < compPts) console.log('You Lose the Game...Computer Wins!')
-    if (userPts == compPts) console.log('Draw')
-    
 }
 
-game()
+function resetGame() {
+    document.getElementById('rock').disabled = false;
+    document.getElementById('paper').disabled = false;
+    document.getElementById('scissors').disabled = false;
+    document.getElementById('reset').style.display = 'none';
+    compScore = 0;
+    userScore = 0;
+    document.getElementById('userScore').innerHTML = userScore;
+    document.getElementById('compScore').innerHTML = compScore;
+    document.getElementById('result').innerHTML = '';
+    document.getElementById('result').style.color = 'black'
+}
 
